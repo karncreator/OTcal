@@ -518,17 +518,22 @@
 
   <script>
     const DEFAULT_SHIFTS = [
-      { key: "ช", name: "เวรเช้า (8 ชม.)", category: "เช้า", start: "08:00", end: "16:00", hours: 8, color: "#2563eb" },
-      { key: "ช4", name: "เวรเช้าสั้น (4 ชม.)", category: "เช้า", start: "08:00", end: "12:00", hours: 4, color: "#60a5fa" },
-      { key: "บ4", name: "เวรบ่าย 4 ชั่วโมง", category: "บ่าย", start: "16:00", end: "20:00", hours: 4, color: "#d97706" },
-      { key: "บ5", name: "เวรบ่าย 5 ชั่วโมง", category: "บ่าย", start: "16:00", end: "21:00", hours: 5, color: "#f59e0b" },
-      { key: "บ6", name: "เวรบ่าย 6 ชั่วโมง", category: "บ่าย", start: "16:00", end: "22:00", hours: 6, color: "#ea580c" },
+  { key: "ช8", name: "เวรเช้า (8 ชม.)", category: "เช้า", start: "08:00", end: "16:00", hours: 8, color: "#2563eb" },
+      { key: "ช9", name: "เวรเช้า (8 ชม.)", category: "เช้า", start: "09:00", end: "17:00", hours: 8, color: "#2563eb" },
+      { key: "ช10", name: "เวรเช้า (8 ชม.)", category: "เช้า", start: "10:00", end: "18:00", hours: 8, color: "#2563eb" },
+      { key: "ชส", name: "เวรเช้า (6 ชม.)", category: "เช้า", start: "10:00", end: "16:00", hours: 6, color: "#2563eb" },
+      { key: "ช11", name: "เวรเช้า (6 ชม.)", category: "เช้า", start: "11:00", end: "17:00", hours: 6, color: "#60a5fa" },
+      { key: "บ4", name: "เวรบ่าย 4 ชั่วโมง", category: "บ่าย", start: "17:00", end: "21:00", hours: 4, color: "#d97706" },
+      { key: "N4", name: "เวรบ่าย 4 ชั่วโมง", category: "บ่าย", start: "18:00", end: "24:00", hours: 4, color: "#d97706" },
+      { key: "L4", name: "เวรบ่าย 5 ชั่วโมง", category: "บ่าย", start: "16:00", end: "21:00", hours: 5, color: "#f59e0b" },
+      { key: "บ5", name: "เวรบ่าย 5 ชั่วโมง", category: "บ่าย", start: "17:00", end: "22:00", hours: 5, color: "#f59e0b" },
+      { key: "L5", name: "เวรบ่าย 6 ชั่วโมง", category: "บ่าย", start: "16:00", end: "22:00", hours: 6, color: "#ea580c" },
+      { key: "N6", name: "เวรบ่าย 6 ชั่วโมง", category: "บ่าย", start: "18:00", end: "24:00", hours: 6, color: "#ea580c" },
       { key: "บ7", name: "เวรบ่าย 7 ชั่วโมง", category: "บ่าย", start: "16:00", end: "23:00", hours: 7, color: "#c2410c" },
       { key: "บ8", name: "เวรบ่าย 8 ชั่วโมง", category: "บ่าย", start: "16:00", end: "24:00", hours: 8, color: "#b45309" },
       { key: "ด", name: "เวรดึก (8 ชม.)", category: "ดึก", start: "00:00", end: "08:00", hours: 8, color: "#7c3aed" },
-      { key: "ด4", name: "เวรดึกสั้น (4 ชม.)", category: "ดึก", start: "00:00", end: "04:00", hours: 4, color: "#a78bfa" },
       { key: "O", name: "วันหยุด (Off)", category: "หยุด", start: "-", end: "-", hours: 0, color: "#64748b" },
-      { key: "ลา", name: "ลาพักผ่อน/ป่วย", category: "หยุด", start: "-", end: "-", hours: 0, color: "#94a3b8" }
+      { key: "ลา", name: "ลาพักผ่อน/ป่วย", category: "หยุด", start: "-", end: "-", hours: 8, color: "#94a3b8" }
     ];
 
     const THAI_MONTHS = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
