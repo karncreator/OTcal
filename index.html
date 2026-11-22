@@ -1522,7 +1522,113 @@ document.getElementById("monthSelect").onchange = changeCalendarMonth;
 document.getElementById("yearSelect").onchange = changeCalendarMonth;
 
 window.onload = init;
+/* ==========================================
+   บันทึกเวลาทำการปกติแยกตามเดือนและปี
+   ไม่กระทบตารางเวรหรือ Google Sheets
+========================================== */
 
+const WORK_HOURS_STORAGE_KEY = "gas_working_hours_v2";
+let workingHoursData = {};
+
+// โหลดชั่วโมงที่เคยบันทึกไว้
+try {
+  const saved = localStorage.getItem(WORK_HOURS_STORAGE_KEY);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (parsed && typeof parsed === "object") {
+      workingHoursData = parsed;
+    }
+  }
+} catch (e) {
+  console.warn("ไม่สามารถโหลดเวลาทำการได้", e);
+}
+
+// บันทึกเวลาทำการของเดือนปัจจุบัน
+function saveMonthlyWorkingHours() {
+  const input = document.getElementById("officialWorkingHoursInput");
+  if (!input) return;
+
+  const key = getKey(curYear, curMonth);
+  const hours = Number(input.value);
+
+  if (!Number.isFinite(hours) || hours < 0) return;
+
+  workingHoursData[key] = hours;
+
+  try {
+    localStorage.setItem(
+      WORK_HOURS_STORAGE_KEY,
+      JSON.stringify(workingHoursData)
+    );
+  } catch (e) {
+    console.warn("ไม่สามารถบันทึกเวลาทำการได้", e);
+  }
+
+  updateAnalytics();
+}
+
+// โหลดเวลาทำการของเดือนที่เลือก
+function loadMonthlyWorkingHours() {
+  const input = document.getElementById("officialWorkingHoursInput");
+  if (!input) return;
+
+  const key = getKey(curYear, curMonth);
+
+  if (Object.prototype.hasOwnProperty.call(workingHoursData, key)) {
+    input.value = workingHoursData[key];
+  } else {
+    input.value = 160;
+  }
+
+  updateAnalytics();
+}
+
+// ทำงานหลังจากระบบเดิมเริ่มต้นเสร็จ
+window.addEventListener("load", function () {
+
+  const input = document.getElementById("officialWorkingHoursInput");
+  const monthSelect = document.getElementById("monthSelect");
+  const yearSelect = document.getElementById("yearSelect");
+  const autoButton = document.getElementById("btnAutoCalcWorkingHours");
+
+  // แสดงชั่วโมงของเดือนแรก
+  loadMonthlyWorkingHours();
+
+  // กรอกชั่วโมงเองแล้วบันทึกแยกเดือน
+  if (input) {
+    input.oninput = saveMonthlyWorkingHours;
+  }
+
+  // กดคำนวณอัตโนมัติแล้วบันทึกแยกเดือน
+  if (autoButton) {
+    autoButton.addEventListener("click", function () {
+      saveMonthlyWorkingHours();
+    });
+  }
+
+  // เปลี่ยนเดือนแล้วโหลดชั่วโมงของเดือนนั้น
+  function switchMonthAndYear() {
+    curMonth = Number(monthSelect.value);
+    curYear = Number(yearSelect.value);
+
+    loadMonthlyWorkingHours();
+    renderCalendar();
+
+    // คงการเชื่อมต่อ Google Sheets เดิมไว้
+    if (isGAS) {
+      loadRosterFromSheet(curMonth, curYear, false);
+    }
+  }
+
+  if (monthSelect) {
+    monthSelect.onchange = switchMonthAndYear;
+  }
+
+  if (yearSelect) {
+    yearSelect.onchange = switchMonthAndYear;
+  }
+
+});
 
     
   </script>
