@@ -1505,26 +1505,26 @@
         renderCalendar();
       }
     };
+function changeCalendarMonth() {
+  curMonth = Number(document.getElementById("monthSelect").value);
+  curYear = Number(document.getElementById("yearSelect").value);
 
-    document.getElementById("monthSelect").onchange = (e) => {
-      curMonth = parseInt(e.target.value, 10);
-      if (isGAS) {
-        loadRosterFromSheet(curMonth, curYear, false);
-      } else {
-        renderCalendar();
-      }
-    };
+  // อัปเดตตารางและข้อมูลตามเดือนที่เลือก
+  renderCalendar();
 
-    document.getElementById("yearSelect").onchange = (e) => {
-      curYear = parseInt(e.target.value, 10);
-      if (isGAS) {
-        loadRosterFromSheet(curMonth, curYear, false);
-      } else {
-        renderCalendar();
-      }
-    };
+  // ทำงานเฉพาะเมื่อใช้ Google Apps Script
+  if (isGAS) {
+    loadRosterFromSheet(curMonth, curYear, false);
+  }
+}
 
-    window.onload = init;
+document.getElementById("monthSelect").onchange = changeCalendarMonth;
+document.getElementById("yearSelect").onchange = changeCalendarMonth;
+
+window.onload = init;
+
+
+    
   </script>
 </body>
 </html>
